@@ -1,46 +1,68 @@
 <!DOCTYPE html>
-<html>
+<html lang="ja">
   <head>
-    <title>Bookers2</title>
-    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <meta charset="utf-8">
+    <script src="https://kit.fontawesome.com/e523d49770.js" crossorigin="anonymous"></script>
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
-
-    <%= stylesheet_pack_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %>
+    <%= stylesheet_link_tag 'application', 'data-turbolinks-track': 'reload' %>
     <%= javascript_pack_tag 'application', 'data-turbolinks-track': 'reload' %>
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
+    <title>Bookers2</title>
   </head>
 
   <body>
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js" integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI" crossorigin="anonymous"></script>
     <header>
-      <a href="/">Bookers</a>
-      <% if user_signed_in? %>
-        <li>
-          <%= link_to "Home", user_path(current_user.id) %>
-        </li>
-        <li>
-          <%= link_to "Users", users_path %>
-        </li>
-        <li>
-          <%= link_to "Books", books_path %>
-        </li>
-        <li>
-          <%= link_to "Log out", destroy_user_session_path, method: :delete %>
-        </li>
-      <% else %>
-        <li>
-          <%= link_to "Home", root_path %>
-        </li>
-        <li>
-          <%= link_to "About", homes_about_path %>
-        </li>
-        <li>
-          <%= link_to "Sing up", new_user_registration_path %>
-        </li>
-        <li>
-          <%= link_to "Log in", new_user_session_path %>
-        </li>
-      <% end %>
+      <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+        <div class="container">
+        <a class="navbar-brand" href="/"><span>Bookers</span></a>
+        <button class="navbar-toggler collapsed" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="navbar-collapse collapse" id="navbarNavDropdown" style>
+        <div class="navbar-collapse collapse show" id="navbarNavDropdown" style="">
+          <ul class="navbar-nav ml-auto">
+            <% if user_signed_in? %>
+              <li class="nav-link text-light">
+                <i class="fas fa-home"></i> <%= link_to "Home", user_path(current_user.id), class:"text-light" %>
+              </li>
+              <li class="nav-link text-light">
+                <i class="fas fa-users"></i> <%= link_to "Users", users_path, class:"text-light" %>
+              </li>
+              <li class="nav-link text-light">
+                <i class="fas fa-book-open"></i> <%= link_to "Books", books_path, class:"text-light" %>
+              <li class="nav-link text-light">
+              <i class="fas fa-sign-out-alt"></i> <%= link_to "Log out", destroy_user_session_path, method: :delete, class:"text-light" %>
+              </li>
+            <% else %>
+              <li class="nav-link text-light">
+                <i class="fas fa-home"></i> <%= link_to "Home",root_path, class:"text-light" %>
+              </li>
+              <li class="nav-link text-light">
+                <i class="fas fa-link"></i> <%= link_to "About", about_path, class:"text-light" %>
+              </li>
+              <li class="nav-link text-light">
+                <i class="fas fa-user-plus"></i> <%= link_to "Sign up", new_user_registration_path, class:"text-light" %>
+              </li>
+              <li class="nav-link text-light">
+                <i class="fas fa-sign-in-alt"></i> <%= link_to "Log in", new_user_session_path, class:"text-light" %>
+              </li>
+            <% end %>
+            </ul>
+        </div>
+      </nav>
     </header>
+    <% if flash[:notice] %>
+      <div class="flash">
+        <%= flash[:notice] %>
+      </div>
+    <% end %>
+
     <%= yield %>
 
     <footer>

@@ -1,7 +1,9 @@
 class UsersController < ApplicationController
+    before_action :authenticate_user!, except: [:top]
+
   def show
-    @user = User.find(params[:id])
     @book = Book.new
+    @user = User.find(params[:id])
     @books = Book.where(user_id: @user.id)
   end
 

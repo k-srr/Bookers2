@@ -1,26 +1,35 @@
 <html class="fontawesome-i2svg-active fontawesome-i2svg-complete">
-<div class="box2">
-
-<h1>Editing Book</h1>
-<%= form_for(@book, url: book_path(@book.id)) do |f| %>
-
-    <h4>Title</h4>
-    <%= f.text_field :title,class:"col-xs-12" %>
-    <h4>Opinion</h4>
-
-    <%= f.text_area :body,class:"col-xs-12" %>
-
-  <nav>
-    <%= f.submit 'Update Book',class: "col-xs-12 btn btn-primary" %>
-  </nav>
-　<% end %>
-<%= link_to "show",book_path(@book.id)%>
-<%= link_to "Back",books_path %>
-
-</div>
-
-
-
-</div>
-</main>
+  <main>
+    <div class="container">
+      <div class="row">
+        <div class="col-sm-12 col-md-8 col-lg-5 px-5 px-sm-0 mx-auto">
+          <h1>Editing Book</h1>
+            <% if @book.errors.any? %>
+              <%= @book.errors.count %>error prohibited this obj from being saved
+              <ul>
+                <% @book.errors.full_messages.each do |message| %>
+                  <li><%= message %></li>
+                <% end %>
+              </ul>
+            <% end %>
+          <%= form_for(@book, url: book_path(@book.id)) do |f| %>
+              <div class="form-group">
+                <label for="form-control book_title">Title</label></br>
+                <%= f.text_field :title,class:"col-xs-12" %>
+              </div>
+              <div class="form-group">
+                <label for="book_opinion">Opinion</label></br>
+                <%= f.text_area :body,class:"col-xs-12" %>
+              </div>
+            <nav>
+              <%= f.submit 'Update Book' ,class: "col-xs-12 btn btn-success" %>
+            </nav>
+          　<% end %>
+          <%= link_to "Show",book_path(@book.id)%>
+          |
+          <%= link_to "Back",books_path %>
+        </div>
+      </div>
+    </div>
+  </main>
 </html>

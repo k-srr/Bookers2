@@ -4,12 +4,16 @@
       <div class = "row">
         <div class = "col-md-3">
           <h2>User info</h2>
+            <% if @book.errors.any? %>
+              <%= @book.errors.count %>error prohibited this obj from being saved
+              <ul>
+                <% @book.errors.full_messages.each do |message| %>
+                  <li><%= message %></li>
+                <% end %>
+              </ul>
+            <% end %>
             <div class = "ing">
-              <% if @user.profile_image.attached? %>
-                <%= image_tag @user.profile_image.image, size: "80x80" %>
-              <% else %>
-                <%= image_tag 'default-image', size: "80x80" %>
-              <% end %>
+              <%= image_tag @user.get_profile_image %>
             </div>
             <table class = "table">
               <%= form_with model: @user do |f| %>
@@ -25,19 +29,23 @@
               </tbody>
               <% end %>
             </table>
-
-              <%= link_to"edit",edit_user_path(@user.id)%>
-
+            <div class="row">
+              <div class="btn btn-outline-secondary btn-block">
+                <%= link_to edit_user_path(@user.id) ,method: :get do%>
+                  <i class="fas fa-user-cog"></i>
+                <% end %>
+              </div>
+            </div>
           <h2 class="mt-3">New book</h2>
           <%= form_with model: Book.new do |f| %>
-            <h4>Title</h4>
-            <%= f.text_field :title %>
-            <h4>Opinion</h4>
-            <%= f.text_area :body %>
+            <label for="book_title">Title</label><br>
+            <%= f.text_field :title %><br>
+            <label for="book_opinion">Opinion</label><br>
+            <%= f.text_area :body %><br>
             <%= f.submit 'Create Book' %>
           <% end %>
         </div>
-        
+
         <div class="col-md-8 offset-md-1">
           <h2>Users</h2>
           <table class='table'>
@@ -51,7 +59,7 @@
             <tbody>
               <% @users.each do |user| %>
               <tr>
-                <th></th>
+                <th><%= image_tag user.get_profile_image %></th>
                 <th><%= user.name %><th>
                 <th><%= link_to"Show",user_path(user.id) %></th>
              </tr>
